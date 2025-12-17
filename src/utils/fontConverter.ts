@@ -9,11 +9,15 @@ import { FontFormat } from '../types'
 export async function downloadFont(
     fontUrl: string,
     fontName: string,
-    targetFormat: FontFormat
+    targetFormat: FontFormat,
+    useCorsProxy = true
 ): Promise<void> {
     try {
+        // Use CORS proxy for external fonts
+        const fetchUrl = useCorsProxy ? `https://api.allorigins.win/raw?url=${encodeURIComponent(fontUrl)}` : fontUrl
+
         // Fetch the font file
-        const response = await fetch(fontUrl, {
+        const response = await fetch(fetchUrl, {
             mode: 'cors',
             credentials: 'omit',
         })

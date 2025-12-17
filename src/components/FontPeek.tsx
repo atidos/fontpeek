@@ -1,5 +1,7 @@
 import { useState, useCallback } from 'react'
 import FontFamily from './FontFamily'
+import { extractFontsFromCSS } from '../utils/fontExtractor'
+import type { FontInfo } from '../types'
 
 interface FontWeight {
     weight: string
@@ -44,10 +46,51 @@ export default function FontPeek() {
         if (!url.trim()) return
 
         setIsLoading(true)
-        await new Promise(r => setTimeout(r, 800))
-        setFonts(DEMO_FONTS)
-        setIsLoading(false)
+        try {
+            // Extract fonts from the URL
+            const extractedFonts = await extractFontsFromCSS(url)
+
+            // Group fonts by family
+            const fontGroups = groupFontsByFamily(extractedFonts)
+            setFonts(fontGroups)
+
+            // If no fonts found, still show empty (don't show demo)
+            // User can click "try demo" if they want to see it
+        } catch (error) {
+            console.error('Failed to analyze URL:', error)
+            // Show error to user
+            const errorMsg = error instanceof Error ? error.message : 'Failed to fetch fonts'
+            alert(`Error: ${errorMsg}\n\nSome sites use bot protection or load fonts dynamically with JavaScript, which prevents extraction. Try a different site or use the demo.`)
+            setFonts([])
+        } finally {
+            setIsLoading(false)
+        }
     }, [url])
+
+    // Helper function to group fonts by family
+    const groupFontsByFamily = (fonts: FontInfo[]): FontGroup[] => {
+        const grouped = new Map<string, FontGroup>()
+
+        fonts.forEach(font => {
+            const key = font.family
+            if (!grouped.has(key)) {
+                grouped.set(key, {
+                    family: font.family,
+                    source: font.source,
+                    weights: []
+                })
+            }
+
+            const group = grouped.get(key)!
+            group.weights.push({
+                weight: font.weight,
+                style: font.style,
+                url: font.url
+            })
+        })
+
+        return Array.from(grouped.values())
+    }
 
     const loadDemo = () => {
         setUrl('https://example.com')

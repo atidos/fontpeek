@@ -364,7 +364,7 @@ export default function App() {
         <div className="h-full flex flex-col relative" style={{ zIndex: 10 }}>
           {/* URL Input - Centered */}
           <div className={`flex-1 flex flex-col items-center justify-center px-6 transition-all duration-300 ${analyzed ? 'flex-none py-12' : ''}`}>
-            <div className="mb-8">
+            <div className="mb-2">
               <AnimatedLogo />
             </div>
 

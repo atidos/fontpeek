@@ -39,13 +39,13 @@ export default function AnimatedLogo() {
                 tl.to(pupilRef, {
                     y: '150%',
                     duration: 0.5,
-                    ease: 'power2.out',
+                    ease: 'power3.inOut',
                     overwrite: true
                 })
                 tl.to(eRef.current, {
                     y: '-0.655em',
                     duration: 0.5,
-                    ease: 'power2.out',
+                    ease: 'power3.inOut',
                     overwrite: true
                 }, "-=0.2")
             }
@@ -53,17 +53,18 @@ export default function AnimatedLogo() {
             const handleMouseLeave = () => {
                 const tl = gsap.timeline()
                 tl.to(eRef.current, {
-                    y: '-0.335em',
+                    y: '-0.865em',
                     duration: 0.5,
-                    ease: 'power2.out',
+                    ease: 'power3.inOut',
                     overwrite: true
                 })
                 tl.to(pupilRef, {
                     y: '50%',
                     duration: 0.5,
-                    ease: 'power2.out',
+                    ease: 'power3.inOut',
                     overwrite: true
                 })
+                tl.set(eRef.current, { y: '-0.335em' })
             }
 
             eyeContainer.addEventListener('mouseenter', handleMouseEnter)
@@ -103,7 +104,7 @@ export default function AnimatedLogo() {
                     y: '50%',
                     duration: 2,
                     ease: 'power3.inOut'
-                },)
+                }, "-=1")
             }
         })
 
@@ -122,7 +123,7 @@ export default function AnimatedLogo() {
             WebkitFontSmoothing: 'antialiased',
             MozOsxFontSmoothing: 'grayscale',
             textRendering: 'optimizeLegibility'
-        }} className='shadow-sm' >
+        }} className='drop-shadow-sm' >
             <span>f</span>
             <span>o</span>
             <span>n</span>
