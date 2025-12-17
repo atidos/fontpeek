@@ -62,7 +62,7 @@ export default function PhysicsBackground({ text }: PhysicsBackgroundProps) {
         Matter.Composite.add(engine.world, [ground, wallLeft, wallRight])
 
         // Load custom font with opentype.js
-        opentype.load('/OPTIVenus-BoldExtended.otf', (err, font) => {
+        opentype.load('./OPTIVenus-BoldExtended.otf', (err, font) => {
             if (err || !font) {
                 console.error('Font load failed:', err)
                 return
