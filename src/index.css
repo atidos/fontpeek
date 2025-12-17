@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Gloock&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: transparent;
+  color: #000;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  background: #fff;
+}
+
+::selection {
+  background: #ff6600;
+  color: #fff;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
